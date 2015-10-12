@@ -1,1 +1,16 @@
 services:
+    orangegate.search.postpersist_listener:
+        class: Symbio\OrangeGate\SearchBundle\Listener\PostPersistListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+        calls:
+            - [ 'setSolrClient', [@solr.client] ]
+            - [ 'setLogger', [@logger] ]
+
+    orangegate.search.postupdate_listener:
+        class: Symbio\OrangeGate\SearchBundle\Listener\PostUpdateListener
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate }
+        calls:
+            - [ 'setSolrClient', [@solr.client] ]
+            - [ 'setLogger', [@logger] ]
